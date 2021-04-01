@@ -1,2 +1,5 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<div class="columns">
+  <%= render partial: 'book',
+             object: @book,
+             locals: { show_link: true } %>
+</div>

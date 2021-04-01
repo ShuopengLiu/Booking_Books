@@ -1,2 +1,7 @@
-<h1>Genres#show</h1>
-<p>Find me in app/views/genres/show.html.erb</p>
+<h3 class="title is-4">Books of <%= @genre.name %></h3>
+
+<div class="columns is-multiline">
+  <%= render partial: 'books/book',
+             collection: @genre.books,
+             locals: { show_link: true } %>
+</div>

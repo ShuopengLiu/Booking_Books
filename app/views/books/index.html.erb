@@ -1,2 +1,7 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<h3 class="title is-4">All Books</h3>
+
+<div class="columns is-multiline">
+  <%= render partial: 'books/book',
+              collection: @books,
+              locals: { show_link: true }%>
+</div>

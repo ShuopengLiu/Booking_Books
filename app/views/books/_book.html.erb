@@ -1,0 +1,31 @@
+<div class="column">
+  <div class="card">
+    <div class="card-content">
+      <p class="title">
+        <% if show_link %>
+          <%= link_to book.title, book %>
+        <% else %>
+          <%= book.title %>
+        <% end %>
+      </p>
+      <p>Price: <%= book.price %></p>
+    </div>
+    <footer class="card-footer">
+      <p class="card-footer-item">
+        Author: <br><%= book.author %>
+      </p>
+      <p class="card-footer-item">
+        Publisher: <br><%= book.publisher %>
+      </p>
+      <p class="card-footer-item">Genre: <%= link_to book.genre.name, book.genre %></p>
+
+    </footer>
+  </div>
+  <% if book.image.present?%>
+      <div class="card-image">
+        <figure class="image">
+        <%= image_tag book.image %>
+        </figure>
+      </div>
+    <% end %>
+</div>

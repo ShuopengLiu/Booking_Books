@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'genres/index'
-  get 'genres/show'
-  get 'books/index'
-  get 'books/show'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :genres, only: %i[index show]
+  resources :books, only: %i[index show]
+
+  root to: "books#index"
 end
