@@ -23,6 +23,7 @@
         <% end %>
       <% end %>
 
+
     <footer class="card-footer">
       <p class="card-footer-item">
         Author: <br><%= book.author %>
@@ -34,11 +35,5 @@
 
     </footer>
   </div>
-  <% if book.image.present?%>
-      <div class="card-image">
-        <figure class="image">
-        <%= image_tag book.image %>
-        </figure>
-      </div>
-   <% end %>
+
 </div>

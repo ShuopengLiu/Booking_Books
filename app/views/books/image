@@ -1,0 +1,7 @@
+  <% if book.image.present?%>
+      <div class="card-image">
+        <figure class="image">
+        <%= image_tag book.image %>
+        </figure>
+      </div>
+   <% end %>
