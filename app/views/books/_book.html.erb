@@ -10,6 +10,19 @@
       </p>
       <p>Price: <%= book.price %></p>
     </div>
+
+
+      <%= form_with url: cart_index_path, method: :post do %>
+        <%= hidden_field_tag(:id, book.id)%>
+        <%= button_tag 'Add to Cart'%>
+      <% end %>
+
+      <% if cart.include?(book) %>
+        <%= button_to cart_path(book), method: :delete do %>
+          Remove From Cart
+        <% end %>
+      <% end %>
+
     <footer class="card-footer">
       <p class="card-footer-item">
         Author: <br><%= book.author %>
@@ -27,5 +40,5 @@
         <%= image_tag book.image %>
         </figure>
       </div>
-    <% end %>
+   <% end %>
 </div>

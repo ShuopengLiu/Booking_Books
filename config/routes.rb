@@ -5,6 +5,6 @@ Rails.application.routes.draw do
 
   resources :genres, only: %i[index show]
   resources :books, only: %i[index show]
-
+  resources :cart, only: %i[create destroy]
   root to: "books#index"
 end

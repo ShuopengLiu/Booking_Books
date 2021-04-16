@@ -52,6 +52,26 @@
       </div>
     </nav>
 
+    <nav>
+      <ul>
+        <li>
+          cart
+          <% if cart.present?%>
+            <sup><%= cart.size %></sup>
+            <ul>
+              <% cart.each do |book|%>
+                <li>
+                  <%= book.title %> <%= link_to '-', cart_path(book), method: :delete %>
+                  <%= quantity%>
+                </li>
+              <%end%>
+            </ul>
+          <% end %>
+        </li>
+      </ul>
+
+    </nav>
+
     <div class="container">
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
