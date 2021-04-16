@@ -61,8 +61,7 @@
             <ul>
               <% cart.each do |book|%>
                 <li>
-                  <%= book.title %> <%= link_to '-', cart_path(book), method: :delete %>
-                  <%= quantity%>
+                  <%= book.title %> X <%= session[:shopping_cart][book.id.to_s]%> -- <%= link_to '[delete]', cart_path(book), method: :delete %>
                 </li>
               <%end%>
             </ul>
@@ -70,8 +69,6 @@
         </li>
       </ul>
     </nav>
-
-    <%= debug session[:shopping_cart] %>
 
     <div class="container">
       <% if notice %>

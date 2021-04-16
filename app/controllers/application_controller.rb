@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :initialize_session
-  helper_method :cart, :quantity
+  helper_method :cart
 
   private
 
@@ -16,7 +16,4 @@ class ApplicationController < ActionController::Base
     Book.find(session[:shopping_cart].keys)
   end
 
-  def quantity
-    session[:shopping_cart][:id]
-  end
 end
