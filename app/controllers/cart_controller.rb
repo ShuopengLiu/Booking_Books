@@ -1,4 +1,8 @@
 class CartController < ApplicationController
+  def index
+
+  end
+
   def create
     # Add param[:id] to the cart
 

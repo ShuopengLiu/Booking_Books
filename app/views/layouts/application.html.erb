@@ -32,6 +32,8 @@
             </li>
           </ul>
 
+          <%= link_to "Cart 🛒 #{cart.size}", cart_index_path, :class => 'btn btn-primary mx-5'%>
+
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -52,31 +54,15 @@
       </div>
     </nav>
 
-    <nav>
-      <ul>
-        <li>
-          cart
-          <% if cart.present?%>
-            <sup><%= cart.size %></sup>
-            <ul>
-              <% cart.each do |book|%>
-                <li>
-                  <%= book.title %> X <%= session[:shopping_cart][book.id.to_s]%> -- <%= link_to '[delete]', cart_path(book), method: :delete %>
-                </li>
-              <%end%>
-            </ul>
-          <% end %>
-        </li>
-      </ul>
-    </nav>
-
     <div class="container">
+
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
       <% end %>
       <% if alert %>
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
+
       <%= yield %>
     </div>
 

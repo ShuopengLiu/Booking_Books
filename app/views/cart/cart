@@ -1,0 +1,14 @@
+      <ul>
+        <li>
+          <% if cart.present?%>
+            <sup><%= cart.size %></sup>
+            <ul>
+              <% cart.each do |book|%>
+                <li>
+                  <%= book.title %> X <%= session[:shopping_cart][book.id.to_s]%> -- <%= link_to '[delete]', cart_path(book), method: :delete %>
+                </li>
+              <%end%>
+            </ul>
+          <% end %>
+        </li>
+      </ul>
