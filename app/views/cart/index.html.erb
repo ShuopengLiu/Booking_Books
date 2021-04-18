@@ -4,7 +4,21 @@
   <ul>
     <% cart.each do |book|%>
       <li>
-        <%= book.title %> X <%= session[:shopping_cart][book.id.to_s]%> -- <%= link_to '[delete]', cart_path(book), method: :delete %>
+        <%= book.title %> * <%= session[:shopping_cart][book.id.to_s]%>
+        <%= link_to '➕', url: cart_index_path, method: :post %>
+
+      <%= form_with url: cart_index_path, method: :post do %>
+        <%= hidden_field_tag(:id, book.id)%>
+        <%= button_tag 'Add to Cart'%>
+      <% end %>
+
+        <%= link_to '➖', cart_path(book), method: :minus %>
+
+         -- <%= link_to '[delete]', cart_path(book), method: :delete %>
       </li>
     <%end%>
   </ul>
+
+<%= form_with  url: checkout_create_path, remote: true do %>
+    <%= button_tag 'Checkout 💳' %>
+<% end %>
