@@ -31,3 +31,5 @@ puts "Created #{Genre.count} Genres."
 puts "Created #{Book.count} Books."
 
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+# ActiveRecord::Base.connection.execute("BEGIN TRANSACTION; END;")

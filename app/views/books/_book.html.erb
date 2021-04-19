@@ -8,7 +8,7 @@
           <%= book.title %>
         <% end %>
       </p>
-      <p>Price: <%= book.price %></p>
+      <p>Price: <%= number_to_currency book.price / 100.0 %></p>
     </div>
 
 

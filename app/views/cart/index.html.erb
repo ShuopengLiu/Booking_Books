@@ -19,7 +19,7 @@
       <tr>
         <th scope="row"><%= book.id %></th>
         <td><%= book.title %></td>
-        <td><%= book.price %></td>
+        <td><%= number_to_currency book.price / 100.0 %></td>
         <td><%= session[:shopping_cart][book.id.to_s]%></td>
         <td>
           <div class="row">
@@ -47,7 +47,7 @@
               SubTotal:
           </div>
           <div class="col-5">
-              <span class="text-120 text-secondary-d1">$<%= subtotal %></span>
+              <span class="text-120 text-secondary-d1"><%= number_to_currency subtotal / 100.0 %></span>
           </div>
       </div>
 
