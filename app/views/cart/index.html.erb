@@ -1,4 +1,4 @@
-
+<% set_province_if_nil %>
 
 <p class="h2">My Shopping Cart</p>
 
@@ -51,30 +51,45 @@
           </div>
       </div>
 
-      <div class="row my-2">
-          <div class="col-7 text-right">
-              PST:
-          </div>
-          <div class="col-5">
-              <span class="text-110 text-secondary-d1">$225</span>
-          </div>
-      </div>
+      <% if current_user.province.pst %>
+        <div class="row my-2">
+            <div class="col-7 text-right">
+                PST:
+            </div>
+            <div class="col-5">
+                <span class="text-110 text-secondary-d1"><%= number_to_currency subtotal * current_user.province.pst / 100.0 %></span>
+            </div>
+        </div>
+      <% end %>
 
-      <div class="row my-2">
-          <div class="col-7 text-right">
-              GST:
-          </div>
-          <div class="col-5">
-              <span class="text-110 text-secondary-d1">$225</span>
-          </div>
-      </div>
+      <% if current_user.province.gst %>
+        <div class="row my-2">
+            <div class="col-7 text-right">
+                GST:
+            </div>
+            <div class="col-5">
+                <span class="text-110 text-secondary-d1"><%= number_to_currency subtotal * current_user.province.gst / 100.0 %></span>
+            </div>
+        </div>
+      <% end %>
+
+      <% if current_user.province.hst %>
+        <div class="row my-2">
+            <div class="col-7 text-right">
+                HST:
+            </div>
+            <div class="col-5">
+                <span class="text-110 text-secondary-d1"><%= number_to_currency subtotal * current_user.province.hst / 100.0 %></span>
+            </div>
+        </div>
+      <% end %>
 
       <div class="row my-2 align-items-center bgc-primary-l3 p-2">
           <div class="col-7 text-right">
               Total Amount:
           </div>
           <div class="col-5">
-              <span class="text-150 text-success-d3 opacity-2">$2,475</span>
+              <span class="text-150 text-success-d3 opacity-2"><%= number_to_currency (subtotal * (1 + current_user.province.total_tax_rate)) / 100.0 %></span>
           </div>
       </div>
 

@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :orders, dependent: :destroy
+  belongs_to :province
 
   # validates :email, confirmation: true
   # validates :username, :email_confirmation, presence: true

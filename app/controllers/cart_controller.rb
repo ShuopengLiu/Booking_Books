@@ -1,5 +1,5 @@
 class CartController < ApplicationController
-  helper_method :subtotal
+  helper_method :subtotal, :set_province_if_nil
 
   def index
     logger.debug "***Current User***: #{current_user.id}"
@@ -56,5 +56,11 @@ class CartController < ApplicationController
     end
 
     subtotal
+  end
+
+  def set_province_if_nil
+    if current_user.province_id.nil?
+      redirect_to edit_user_registration_path
+    end
   end
 end
