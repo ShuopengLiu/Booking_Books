@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :initialize_session
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :cart
+
+  helper_method :cart, :subtotal, :set_province_if_nil
 
   protected
 
@@ -26,15 +27,20 @@ class ApplicationController < ActionController::Base
     Book.find(session[:shopping_cart].keys)
   end
 
-  # def increase(id)
-  #   session[:shopping_cart][id.to_s] += 1
-  # end
+  def subtotal
+    subtotal = 0
+    ids = session[:shopping_cart].keys
 
-  # def decrease(id)
-  #   if session[:shopping_cart][id] == 1
-  #     session[:shopping_cart].delete(id)
-  #   else
-  #     session[:shopping_cart][id] -= 1
-  #   end
-  # end
+    ids.each do |id|
+      subtotal += Book.find(id).price * session[:shopping_cart][id]
+    end
+
+    subtotal
+  end
+
+  def set_province_if_nil
+    if current_user.province_id.nil?
+      redirect_to edit_user_registration_path
+    end
+  end
 end

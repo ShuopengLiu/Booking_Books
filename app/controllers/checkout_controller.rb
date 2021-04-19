@@ -14,12 +14,21 @@ class CheckoutController < ApplicationController
       line_items.push(
         {
           name:     book.title,
-          amount:   100,
+          amount:   book.price,
           currency: "cad",
           quantity: session[:shopping_cart][book.id.to_s]
         }
       )
     end
+
+    line_items.push(
+      {
+        name:     "Tax",
+        amount:   (subtotal * current_user.province.total_tax_rate).to_i,
+        currency: "cad",
+        quantity: 1
+      }
+    )
 
     logger.debug "Items: #{line_items}"
     # Establish a connection with Stripe and then redirect the user to the payment screen.

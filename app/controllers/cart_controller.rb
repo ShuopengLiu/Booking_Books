@@ -1,6 +1,4 @@
 class CartController < ApplicationController
-  helper_method :subtotal, :set_province_if_nil
-
   def index
     logger.debug "***Current User***: #{current_user.id}"
     logger.debug "***Current User***: #{current_user.email}"
@@ -43,24 +41,5 @@ class CartController < ApplicationController
     book = Book.find(id.to_i)
     flash[:notice] = "<< #{book.title} >> removed from cart."
     redirect_back(fallback_location: root_path)
-  end
-
-  private
-
-  def subtotal
-    subtotal = 0
-    ids = session[:shopping_cart].keys
-
-    ids.each do |id|
-      subtotal += Book.find(id).price * session[:shopping_cart][id]
-    end
-
-    subtotal
-  end
-
-  def set_province_if_nil
-    if current_user.province_id.nil?
-      redirect_to edit_user_registration_path
-    end
   end
 end
