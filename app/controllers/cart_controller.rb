@@ -1,4 +1,6 @@
 class CartController < ApplicationController
+  helper_method :subtotal
+
   def index
     logger.debug "***Current User***: #{current_user.id}"
     logger.debug "***Current User***: #{current_user.email}"
@@ -8,7 +10,8 @@ class CartController < ApplicationController
     # Add param[:id] to the cart
 
     id = params[:id]
-
+    logger.debug "LSP***BOOK ID***: #{id}"
+    logger.debug "LSP***BOOK ID***: #{id}"
     if session[:shopping_cart].keys.include?(id)
       session[:shopping_cart][id] += 1
     else
@@ -16,8 +19,8 @@ class CartController < ApplicationController
     end
 
     book = Book.find(id.to_i)
-    flash[:notice] = "+ #{book.title} added to cart."
-    redirect_to root_path
+    flash[:notice] = "<< #{book.title} >> added to cart."
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -25,13 +28,33 @@ class CartController < ApplicationController
     id = params[:id]
     session[:shopping_cart].delete(id)
     book = Book.find(id.to_i)
-    flash[:notice] = "- #{book.title} removed from cart."
-    redirect_to root_path
+    flash[:notice] = "<< #{book.title} >> removed from cart."
+    redirect_back(fallback_location: root_path)
   end
 
-  def minus
+  def update
     id = params[:id]
-    session[:shopping_cart][id] -= 1
-    flash[:notice] = "Number - 1"
+    if session[:shopping_cart][id] == 1
+      # decrease
+      session[:shopping_cart].delete(id)
+    else
+      session[:shopping_cart][id] -= 1
+    end
+    book = Book.find(id.to_i)
+    flash[:notice] = "<< #{book.title} >> removed from cart."
+    redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def subtotal
+    subtotal = 0
+    ids = session[:shopping_cart].keys
+
+    ids.each do |id|
+      subtotal += Book.find(id).price * session[:shopping_cart][id]
+    end
+
+    subtotal
   end
 end

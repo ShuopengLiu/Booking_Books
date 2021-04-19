@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :initialize_session
-  helper_method :cart, :increase, :decrease
+  helper_method :cart
 
   private
 
@@ -16,15 +16,15 @@ class ApplicationController < ActionController::Base
     Book.find(session[:shopping_cart].keys)
   end
 
-  def increase(id)
-    session[:shopping_cart][id] += 1
-  end
+  # def increase(id)
+  #   session[:shopping_cart][id.to_s] += 1
+  # end
 
-  def decrease(id)
-    if session[:shopping_cart][id] == 1
-      session[:shopping_cart].delete(id)
-    else
-      session[:shopping_cart][id] -= 1
-    end
-  end
+  # def decrease(id)
+  #   if session[:shopping_cart][id] == 1
+  #     session[:shopping_cart].delete(id)
+  #   else
+  #     session[:shopping_cart][id] -= 1
+  #   end
+  # end
 end
