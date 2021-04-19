@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  paginates_per 9
   belongs_to :genre
 
   has_many :ordered_books
