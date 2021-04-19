@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :genres, only: %i[index show]
-  resources :books, only: %i[index show]
+  resources :books, only: %i[index show] do
+    collection do
+      get :search
+    end
+  end
   resources :cart, only: %i[index create destroy update]
 
   scope "/checkout" do
