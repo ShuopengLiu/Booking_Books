@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_161247) do
+ActiveRecord::Schema.define(version: 2021_04_19_023313) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2021_04_09_161247) do
     t.string "publisher"
     t.text "description"
     t.string "condition"
-    t.decimal "price"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "genre_id", null: false

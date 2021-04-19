@@ -11,9 +11,9 @@ NUMBER_OF_GENRES.times do
   BOOKS_PER_GENRE.times do
     book = genre.books.create(
       title:     Faker::Book.title,
-      author:     Faker::Book.author,
+      author:    Faker::Book.author,
       publisher: Faker::Book.publisher,
-      price:     rand(1.0..100.0).round(2)
+      price:     rand(100..20_000)
     )
     #--> unsplash API ... comes back with a 600x600 image based on the book name and genre
     query = URI.encode_www_form_component([book.title, genre.name].join(","))
