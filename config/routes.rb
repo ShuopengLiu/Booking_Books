@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :genres, only: %i[index show]
-  resources :books, only: %i[index show] do
+  resources :books, only: %i[index show search] do
     collection do
       get :search
     end
