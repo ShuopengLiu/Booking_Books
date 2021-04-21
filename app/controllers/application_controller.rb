@@ -39,8 +39,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_province_if_nil
-    if current_user.province_id.nil?
-      redirect_to edit_user_registration_path
-    end
+    redirect_to edit_user_registration_path if current_user.province_id.nil?
   end
 end

@@ -5,17 +5,12 @@ class CartController < ApplicationController
   end
 
   def create
-    # Add param[:id] to the cart
-
     id = params[:id]
-    logger.debug "LSP***BOOK ID***: #{id}"
-    logger.debug "LSP***BOOK ID***: #{id}"
     if session[:shopping_cart].keys.include?(id)
       session[:shopping_cart][id] += 1
     else
       session[:shopping_cart][id] = 1
     end
-
     book = Book.find(id.to_i)
     flash[:notice] = "<< #{book.title} >> added to cart."
     redirect_back(fallback_location: root_path)
@@ -33,7 +28,6 @@ class CartController < ApplicationController
   def update
     id = params[:id]
     if session[:shopping_cart][id] == 1
-      # decrease
       session[:shopping_cart].delete(id)
     else
       session[:shopping_cart][id] -= 1
