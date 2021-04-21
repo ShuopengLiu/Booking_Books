@@ -1,5 +1,5 @@
 ActiveAdmin.register Book do
-  permit_params :title, :author, :publisher, :description, :condition, :price, :image
+  permit_params :title, :author, :publisher, :description, :condition, :price, :image, :genre_id
 
   form do |f|
     f.semantic_errors # shows errors on :base

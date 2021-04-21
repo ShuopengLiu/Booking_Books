@@ -11,13 +11,7 @@ class BooksController < ApplicationController
   def search
     @key_word = params[:keyword]
     @category_id = params[:name].to_i
-
-    logger.debug("LSP*****Search Key word:#{@key_word}")
-    logger.debug("LSP*****Category ID:#{@category_id}")
-
     @category_name = Genre.find(params[:name]).name
-
-    logger.debug("LSP*****Category Name:#{@category_name}")
 
     @books = if @key_word.blank?
                if @category_name == "all"
@@ -34,5 +28,14 @@ class BooksController < ApplicationController
                    .where("genre_id == :cat", cat: @category_id)
                    .page(params[:page])
              end
+  end
+
+  def list_new
+    @books = Book.where("created_at >= ?", 2.days.ago).page(params[:page])
+  end
+
+  def list_recent_update
+    @books = Book.where("created_at <= ?", 2.days.ago)
+                 .where("updated_at >= ?", 2.days.ago).page(params[:page])
   end
 end

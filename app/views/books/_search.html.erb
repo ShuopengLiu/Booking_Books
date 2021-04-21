@@ -1,12 +1,20 @@
 
-<%= form_with(url:search_books_path, local:true, method:"get", class:'form-inline my-2 my-lg-0') do |f|%>
-  By Category: <%= f.select :name, options_from_collection_for_select(Genre.all, :id, :name)%>
-  <%= text_field_tag :keyword %>
-  <%= submit_tag ("Search")%>
-  <%# <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> %>
-<% end %>
+<div class="d-flex bd-highlight">
 
+  <div class="p-2 flex-grow-1 bd-highlight">
+    <%= form_with(url:search_books_path, local:true, method:"get", class:'form-inline my-2 my-lg-0') do |f|%>
+      By Category: <%= f.select :name, options_from_collection_for_select(Genre.all, :id, :name)%>
+    <%= text_field_tag :keyword %>
+    <%= submit_tag ("Search")%>
+    <% end %>
+  </div>
 
+  <div class="p-2 bd-highlight">
+    <%= link_to "New Books", list_new_books_path, :class => 'btn btn-success'%>
+  </div>
 
-<%# , :selected => params[:name] %>
+  <div class="p-2 bd-highlight">
+    <%= link_to "Recently Updated", list_recent_update_books_path, :class => 'btn btn-success'%>
+  </div>
+
+</div>

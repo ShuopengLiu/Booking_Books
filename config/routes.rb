@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :genres, only: %i[index show]
-  resources :books, only: %i[index show search] do
+  resources :books, only: %i[index show search list_new list_recent_update] do
     collection do
-      get :search
+      get :search, :list_new, :list_recent_update
     end
   end
   resources :cart, only: %i[index create destroy update]
