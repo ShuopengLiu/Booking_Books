@@ -9,11 +9,37 @@ class CheckoutController < ApplicationController
     end
 
     # Create order : status, total_price, address,   (user_id, province_id)
-    # Create ordered_book: quantity, selling_price  (book_id, order_id)
+    order = Order.create(
+      status:      "new",
+      total_price: subtotal,
+      address:     current_user.address,
+      user:        User.find(current_user.id),
+      province:    User.find(current_user.id).province
+    )
+
+    if order.save
+      logger.debug("LSP****Order Create Successfull: #{order}")
+    else
+      logger.debug("LSP****Order Create Failure: #{order}")
+    end
 
     line_items = []
 
     books.each do |book|
+      # Create ordered_book: quantity, selling_price  (book_id, order_id)
+      ordered_book = OrderedBook.create(
+        quantity:      session[:shopping_cart][book.id],
+        selling_price: book.price,
+        book:          Book.find(book.id),
+        order:         Order.find(order.id)
+      )
+
+      if ordered_book.save
+        logger.debug("LSP****Ordered Book Create Failure: #{ordered_book}")
+      else
+        logger.debug("LSP****Ordered Book Create Failure: #{book}")
+      end
+      # Create line_items for stripe checkout object
       line_items.push(
         {
           name:     book.title,

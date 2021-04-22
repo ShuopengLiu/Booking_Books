@@ -1,4 +1,4 @@
 class Province < ApplicationRecord
   has_many :users, dependent: :destroy
-  has_many :orders, dependent: :destory
+  has_many :orders, dependent: :destroy
 end
