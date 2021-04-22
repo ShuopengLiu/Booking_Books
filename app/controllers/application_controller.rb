@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :province_id, :password) }
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :province_id, :password, :address) }
     devise_parameter_sanitizer.permit(:account_update) do |u|
-      u.permit(:email, :province_id, :password, :current_password)
+      u.permit(:email, :province_id, :password, :current_password, :address)
     end
   end
 

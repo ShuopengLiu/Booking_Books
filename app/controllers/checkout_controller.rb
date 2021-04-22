@@ -8,6 +8,9 @@ class CheckoutController < ApplicationController
       return
     end
 
+    # Create order : status, total_price, province_id  (user_id)
+    # Create ordered_book: quantity, selling_price  (book_id, order_id)
+
     line_items = []
 
     books.each do |book|

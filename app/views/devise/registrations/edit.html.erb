@@ -13,6 +13,11 @@
     <%= f.select :province_id, options_from_collection_for_select(Province.all, :id, :name) %>
   </div>
 
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
