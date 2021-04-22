@@ -28,16 +28,16 @@ class CheckoutController < ApplicationController
     books.each do |book|
       # Create ordered_book: quantity, selling_price  (book_id, order_id)
       ordered_book = OrderedBook.create(
-        quantity:      session[:shopping_cart][book.id],
+        quantity:      session[:shopping_cart][book.id.to_s].to_i,
         selling_price: book.price,
         book:          Book.find(book.id),
         order:         Order.find(order.id)
       )
 
       if ordered_book.save
-        logger.debug("LSP****Ordered Book Create Failure: #{ordered_book}")
+        logger.debug("LSP****Ordered Book Create Success: #{ordered_book}")
       else
-        logger.debug("LSP****Ordered Book Create Failure: #{book}")
+        logger.debug("LSP****Ordered Book Create Failure: bookid#{book.id} orderid#{order.id} price#{book.price}")
       end
       # Create line_items for stripe checkout object
       line_items.push(
