@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_161247) do
+ActiveRecord::Schema.define(version: 2021_04_19_092626) do
+
+  create_table "abouts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -72,7 +77,7 @@ ActiveRecord::Schema.define(version: 2021_04_09_161247) do
     t.string "publisher"
     t.text "description"
     t.string "condition"
-    t.decimal "price"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "genre_id", null: false
@@ -117,6 +122,16 @@ ActiveRecord::Schema.define(version: 2021_04_09_161247) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.decimal "pst"
+    t.decimal "gst"
+    t.decimal "hst"
+    t.decimal "total_tax_rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "phone"
@@ -128,7 +143,9 @@ ActiveRecord::Schema.define(version: 2021_04_09_161247) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "province_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -138,4 +155,5 @@ ActiveRecord::Schema.define(version: 2021_04_09_161247) do
   add_foreign_key "ordered_books", "books"
   add_foreign_key "ordered_books", "orders"
   add_foreign_key "orders", "users"
+  add_foreign_key "users", "provinces"
 end

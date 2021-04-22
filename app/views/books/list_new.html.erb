@@ -1,0 +1,13 @@
+<h3 class="title is-4">New Books</h3>
+
+<div class="columns is-multiline">
+  <%= render partial: 'books/book',
+              collection: @books,
+              locals: { show_link: true }%>
+  <% if @books.count == 0 %>
+    <p>No results found!</p>
+  <% end %>
+</div>
+
+
+<div class="row"> <%= paginate @books%> </div>

@@ -10,6 +10,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://js.stripe.com/v3"></script>
   </head>
 
   <body>
@@ -32,10 +33,7 @@
             </li>
           </ul>
 
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <%= link_to "Cart 🛒 #{cart.size}", cart_index_path, :class => 'btn btn-primary mx-5'%>
 
           <p class="navbar-text ml-5">
             <% if user_signed_in? %>
@@ -53,12 +51,16 @@
     </nav>
 
     <div class="container">
+
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
       <% end %>
       <% if alert %>
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
+
+      <%= render partial: 'books/search' %>
+
       <%= yield %>
     </div>
 

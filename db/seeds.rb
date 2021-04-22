@@ -11,9 +11,9 @@ NUMBER_OF_GENRES.times do
   BOOKS_PER_GENRE.times do
     book = genre.books.create(
       title:     Faker::Book.title,
-      author:     Faker::Book.author,
+      author:    Faker::Book.author,
       publisher: Faker::Book.publisher,
-      price:     rand(1.0..100.0).round(2)
+      price:     rand(100..20_000)
     )
     #--> unsplash API ... comes back with a 600x600 image based on the book name and genre
     query = URI.encode_www_form_component([book.title, genre.name].join(","))
@@ -23,11 +23,11 @@ NUMBER_OF_GENRES.times do
     book.image.attach(io:       downloaded_image,
                       filename: "m-#{[book.title, genre.name].join('-')}.jpg")
 
-    sleep(0.5) # <=== if youre downloading A LOT of images, do yourself a favour and DONT get yourself blocked by spamming the API.
+    sleep(0.5)
   end
 end
 
-puts "Created #{Genre.count} Genres."
-puts "Created #{Book.count} Books."
+logger.debug("Created #{Genre.count} Genres.")
+logger.debug("Created #{Book.count} Books.")
 
-# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+# ActiveRecord::Base.connection.execute("BEGIN TRANSACTION; END;")

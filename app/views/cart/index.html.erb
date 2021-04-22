@@ -1,0 +1,106 @@
+<% set_province_if_nil %>
+
+<p class="h2">My Shopping Cart</p>
+
+<div class="page-content container">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Book ID</th>
+      <th scope="col">Book Title</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% cart.each do |book|%>
+      <tr>
+        <th scope="row"><%= book.id %></th>
+        <td><%= book.title %></td>
+        <td><%= number_to_currency book.price / 100.0 %></td>
+        <td><%= session[:shopping_cart][book.id.to_s]%></td>
+        <td>
+          <div class="row">
+            <%= form_with url: cart_index_path, method: :post do %>
+              <%= hidden_field_tag(:id, book.id)%>
+              <%= button_tag '➕'%>
+            <% end %>
+            <%= button_to '➖',cart_path(book.id), method: :patch %>
+          </div>
+        </td>
+        <td><%= link_to '[delete]', cart_path(book), method: :delete %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+ <div class="row mt-3">
+  <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
+
+  </div>
+
+  <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
+      <div class="row my-2">
+          <div class="col-7 text-right">
+              SubTotal:
+          </div>
+          <div class="col-5">
+              <span class="text-120 text-secondary-d1"><%= number_to_currency subtotal / 100.0 %></span>
+          </div>
+      </div>
+
+      <% if current_user.province.pst %>
+        <div class="row my-2">
+            <div class="col-7 text-right">
+                PST:
+            </div>
+            <div class="col-5">
+                <span class="text-110 text-secondary-d1"><%= number_to_currency subtotal * current_user.province.pst / 100.0 %></span>
+            </div>
+        </div>
+      <% end %>
+
+      <% if current_user.province.gst %>
+        <div class="row my-2">
+            <div class="col-7 text-right">
+                GST:
+            </div>
+            <div class="col-5">
+                <span class="text-110 text-secondary-d1"><%= number_to_currency subtotal * current_user.province.gst / 100.0 %></span>
+            </div>
+        </div>
+      <% end %>
+
+      <% if current_user.province.hst %>
+        <div class="row my-2">
+            <div class="col-7 text-right">
+                HST:
+            </div>
+            <div class="col-5">
+                <span class="text-110 text-secondary-d1"><%= number_to_currency subtotal * current_user.province.hst / 100.0 %></span>
+            </div>
+        </div>
+      <% end %>
+
+      <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+          <div class="col-7 text-right">
+              Total Amount:
+          </div>
+          <div class="col-5">
+              <span class="text-150 text-success-d3 opacity-2"><%= number_to_currency (subtotal * (1 + current_user.province.total_tax_rate)) / 100.0 %></span>
+          </div>
+      </div>
+
+<hr />
+      <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+          <div class="col-7 text-right">
+                <%= form_with  url: checkout_create_path, remote: true do %>
+                    <%= button_tag 'Checkout 💳' %>
+                <% end %>
+          </div>
+      </div>
+  </div>
+</div>
+
